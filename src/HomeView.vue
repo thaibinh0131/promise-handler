@@ -2,26 +2,26 @@
 import Posts from './components/Posts.vue';
 import Comments from './components/Comments.vue';
 import { ref, onMounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import {useRouteQuery} from './composables/useRouteQuery'
 
-const tab = ref('post');
-const route = useRoute();
-const router = useRouter();
+const {getQueryValue, navigateTo} = useRouteQuery()
+
+const tab = ref(getQueryValue({
+  queryKey: 'tab',
+  defaultValue: 'post'
+}));
+
 function changeTab(value: string) {
   tab.value = value;
-  router.push(`/?tab=${value}`);
+navigateTo({
+  tab: value
+})
 }
 
-function init() {
-  const queryTab = route.query.tab;
-  tab.value = queryTab || 'post';
-}
-init();
 </script>
 
 <template>
   <div>
-    {{ route.fullPath }}
     <button @click="changeTab('post')">Show Posts</button>
     <button @click="changeTab('comment')">Show Comments</button>
   </div>
