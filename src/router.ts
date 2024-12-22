@@ -1,9 +1,9 @@
-import { createMemoryHistory, createRouter } from 'vue-router';
+import { createWebHistory, createRouter } from 'vue-router';
 import HomeView from './HomeView.vue';
 
 const routes = [{ path: '/', component: HomeView }];
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 });
 
